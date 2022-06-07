@@ -9,4 +9,4 @@ SCREEPS_TOKEN = <insert your screeps API token here>
 USER = <insert your screeps user id here - a string of random letters and numbers, can be found using developer console and inspecting network requests when logged in to screeps on a browser>
  
 Run index.js, this will run the scraping of your user history for market transactions. This will be converted to a JSON and csv file once done. The csv file can be uploaded to any spreadsheet software, google sheets is free to use and has been tested
-  It is worth turning off rate limiting while you do the scraping, do this on the page where you get your API token on screeps
+  It is worth turning off rate limiting while you do the scraping, do this on the page where you get your API token on screeps (click the lock symbol next to the token you are using).
