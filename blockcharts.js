@@ -1,4 +1,4 @@
-const chartWidth = 400
+const chartWidth = 450
 import pkg from 'terminal-kit';
 const {terminal} = pkg;
 const block = '█'
