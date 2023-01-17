@@ -1,4 +1,6 @@
 import { readFile } from 'fs/promises';
+import pkg from 'asciichart';
+import {plot} from "./blockcharts.js";
 let parsed = await JSON.parse(
 		await readFile(
 				new URL('./results.json', import.meta.url)
@@ -6,7 +8,13 @@ let parsed = await JSON.parse(
 )
 let obj = {}
 let globalObj = {}
+let start,end
+let totalProfit = 0;
 for (let i in parsed){
+		if (!start){
+				start = parsed[i].date
+		}
+		end = parsed[i].date
 		let page = parsed[i]
 		for (let j in page.list){
 				let order = page.list[j]
@@ -34,7 +42,16 @@ let sorted = []
 for (let i in globalObj){
 		let resourceObj = globalObj[i]
 		resourceObj.res = i
+		if (resourceObj.res === 'undefined'){
+				resourceObj.res = 'fees'
+		}
 		sorted.push(resourceObj)
+		totalProfit += resourceObj.profit
 }
-sorted.sort((a,b)=>a.profit-b.profit)
-console.log(JSON.stringify(sorted))
+sorted.sort((a,b)=>b.profit-a.profit)
+plot(sorted,'profit','res')
+for (let i in sorted){
+		sorted[i] = JSON.stringify(sorted[i])
+}
+// console.log(sorted.join('\n'))
+console.log(`total profit: ${totalProfit}`)

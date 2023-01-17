@@ -15,4 +15,7 @@ for (let i in parsed){
 				}
 		}
 }
-console.log(JSON.stringify(list))
+list.sort((a,b)=> a.market.price - b.market.price)
+for (let i in list){
+		console.log(list[i].date,list[i].type,list[i].shard,list[i].market.price,list[i].market.roomName,list[i].market.targetRoomName)
+}
