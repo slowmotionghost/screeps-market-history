@@ -1,5 +1,4 @@
 import { readFile } from 'fs/promises';
-import pkg from 'asciichart';
 import {plot} from "./blockcharts.js";
 let parsed = await JSON.parse(
 		await readFile(
@@ -49,7 +48,10 @@ for (let i in globalObj){
 		totalProfit += resourceObj.profit
 }
 sorted.sort((a,b)=>b.profit-a.profit)
+console.log('profit:')
 plot(sorted,'profit','res')
+console.log('volume:')
+plot(sorted,'volume','res')
 for (let i in sorted){
 		sorted[i] = JSON.stringify(sorted[i])
 }

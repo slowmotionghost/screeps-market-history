@@ -1,21 +1,23 @@
 import { readFile } from 'fs/promises';
+import {linePlotByRoom, linePlotOverMonth} from "./charts.js";
 let parsed = await JSON.parse(
 		await readFile(
 				new URL('./results.json', import.meta.url)
 		)
 )
-const filteredResources = ['machine']
+const filteredResources = ['energy']
 let list = []
+let marketData = []
 for (let i in parsed){
 		let page = parsed[i]
 		for (let j in page.list){
 				let order = page.list[j]
-				if (filteredResources.includes(order.market.resourceType)){
+				if (filteredResources.includes(order.market.resourceType) && order.market && order.type === 'market.buy'){
 						list.push(order)
+						marketData.push(order.data)
 				}
 		}
 }
-list.sort((a,b)=> a.market.price - b.market.price)
-for (let i in list){
-		console.log(list[i].date,list[i].type,list[i].shard,list[i].market.price,list[i].market.roomName,list[i].market.targetRoomName)
-}
+linePlotOverMonth(list,'change')
+//linePlotOverMonth(marketData,'amount')
+linePlotByRoom(list,'change')

@@ -11,7 +11,7 @@ let headers = {
 // const writer = fs.createWriteStream('results.csv');
 //
 // reader.pipe(jsonexport()).pipe(writer);
-getMarketHistory(0,10000)
+getMarketHistory(0,1000)
 async function getMarketHistory(start,end){
 		let count = start
 		let formattedDataArray = []
